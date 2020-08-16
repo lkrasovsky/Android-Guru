@@ -8,6 +8,7 @@ import androidx.room.Query
 
 @Dao
 interface TopicsDao {
+
     @Query("SELECT * FROM topics")
     fun getAll(): LiveData<List<Topic>>
 

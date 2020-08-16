@@ -1,9 +1,11 @@
 package com.example.androidquestions.utils
 
+import android.app.Activity
 import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -54,4 +56,14 @@ fun View.goneWithScale() {
         startAnimation(zoomToZeroAnimation)
         gone()
     }
+}
+
+fun View.showKeyboard() {
+    val imm = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.showSoftInput(this, 0)
+}
+
+fun View.hideKeyboard() {
+    val imm = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(windowToken, 0)
 }
