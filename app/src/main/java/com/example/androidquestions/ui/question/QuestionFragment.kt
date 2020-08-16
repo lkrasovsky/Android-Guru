@@ -21,6 +21,7 @@ class QuestionFragment : BaseFragment(R.layout.fragment_question) {
     }
 
     private fun setupWebView() {
-        web_view.loadUrl(args.questionLink)
+        val questionLink = args.questionLink
+        web_view.loadUrl(questionLink)
     }
 }

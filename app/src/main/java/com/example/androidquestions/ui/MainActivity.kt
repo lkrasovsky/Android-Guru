@@ -70,7 +70,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     private fun uploadData() {
-        findViewById<View>(R.id.action_update).goneWithScale()
+        val updateButton = findViewById<View>(R.id.action_update)
+        updateButton?.goneWithScale()
         GlobalScope.async {
             database.clearAllTables()
         }.invokeOnCompletion {
@@ -79,7 +80,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 parseTopics(topicsDoc)
                 parseQuestions(topicsDoc)
             }.invokeOnCompletion {
-                runOnUiThread { findViewById<View>(R.id.action_update).visibleWithScale() }
+                runOnUiThread { updateButton?.visibleWithScale() }
             }
         }
     }

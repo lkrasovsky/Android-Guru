@@ -11,7 +11,7 @@ import com.example.androidquestions.utils.onClick
 
 class QuestionsAdapter(
     private val questions: List<Question>,
-    private val callback: (String) -> Unit
+    private val callback: (Question) -> Unit
 ) : RecyclerView.Adapter<QuestionsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,7 +31,7 @@ class QuestionsAdapter(
         fun bind(question: Question) {
             binding.setVariable(BR.question, question)
             binding.executePendingBindings()
-            itemView.onClick { callback(question.link) }
+            itemView.onClick { callback(question) }
         }
     }
 }

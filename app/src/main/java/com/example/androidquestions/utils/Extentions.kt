@@ -23,6 +23,10 @@ inline fun <reified T : View> T.onClick(crossinline function: (T) -> Unit) {
     }
 }
 
+fun SharedPreferences.putInt(key: String, value: Int) {
+    edit().putInt(key, value).apply()
+}
+
 fun SharedPreferences.putBoolean(key: String, value: Boolean) {
     edit().putBoolean(key, value).apply()
 }

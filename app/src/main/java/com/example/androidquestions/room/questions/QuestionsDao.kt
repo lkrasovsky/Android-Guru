@@ -11,9 +11,9 @@ interface QuestionsDao {
     @Query("SELECT * FROM questions WHERE topicId = :topicId")
     fun getAllFilteredByTopic(topicId: Int): LiveData<List<Question>>
 
+    @Query("SELECT * FROM questions WHERE id = :id")
+    fun getById(id: Int): Question
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(questions: List<Question>)
-
-    @Query("DELETE FROM questions")
-    suspend fun clear()
 }

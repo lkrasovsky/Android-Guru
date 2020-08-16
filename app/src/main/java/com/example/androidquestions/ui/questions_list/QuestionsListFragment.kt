@@ -6,10 +6,10 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.example.androidquestions.R
 import com.example.androidquestions.room.questions.Question
-import com.example.androidquestions.room.questions.QuestionsRepository
 import com.example.androidquestions.ui.BaseFragment
+import com.example.androidquestions.utils.SharedPrefKeys
+import com.example.androidquestions.utils.putInt
 import kotlinx.android.synthetic.main.fragment_questions_list.*
-import org.koin.android.ext.android.inject
 
 class QuestionsListFragment : BaseFragment(R.layout.fragment_questions_list) {
 
@@ -17,7 +17,6 @@ class QuestionsListFragment : BaseFragment(R.layout.fragment_questions_list) {
         private const val TAG = "QuestionsListFragment"
     }
 
-    private val repository: QuestionsRepository by inject()
     private val args: QuestionsListFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -27,7 +26,7 @@ class QuestionsListFragment : BaseFragment(R.layout.fragment_questions_list) {
 
     private fun observeQuestionsLiveData() {
         val topicId: Int = args.topicId
-        repository.getAllFilteredByTopic(topicId).observe(
+        questionsRepository.getAllFilteredByTopic(topicId).observe(
             viewLifecycleOwner,
             Observer {
                 setupQuestionsRecycler(it)
@@ -36,11 +35,18 @@ class QuestionsListFragment : BaseFragment(R.layout.fragment_questions_list) {
     }
 
     private fun setupQuestionsRecycler(questions: List<Question>) {
-        questions_recycler.adapter = QuestionsAdapter(questions) { openQuestionFragment(it) }
+        questions_recycler.adapter = QuestionsAdapter(questions) {
+            updateLastOpenedQuestion(it.id)
+            openQuestionFragment(it.link)
+        }
     }
 
     private fun openQuestionFragment(questionLink: String) {
         val action = QuestionsListFragmentDirections.actionQuestionsListFragmentToQuestionFragment(questionLink)
         navController.navigate(action)
+    }
+
+    private fun updateLastOpenedQuestion(questionId: Int) {
+        preferences.putInt(SharedPrefKeys.LAST_OPENED_QUESTION, questionId)
     }
 }

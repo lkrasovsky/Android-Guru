@@ -7,6 +7,10 @@ class QuestionsRepository(private val questionsDao: QuestionsDao) {
         return questionsDao.getAllFilteredByTopic(topicId)
     }
 
+    fun getById(id: Int): Question {
+        return questionsDao.getById(id)
+    }
+
     suspend fun insert(questions: List<Question>) {
         return questionsDao.insert(questions)
     }

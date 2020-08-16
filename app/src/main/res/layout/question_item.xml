@@ -15,7 +15,7 @@
 
         <TextView
             style="@style/text"
-            android:layout_margin="16dp"
+            android:padding="16dp"
             android:text="@{question.title}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

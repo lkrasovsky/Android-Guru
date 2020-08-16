@@ -5,10 +5,15 @@ import android.view.View
 import androidx.lifecycle.Observer
 import com.example.androidquestions.R
 import com.example.androidquestions.room.topics.Topic
-import com.example.androidquestions.room.topics.TopicsRepository
 import com.example.androidquestions.ui.BaseFragment
+import com.example.androidquestions.ui.questions_list.QuestionsListFragmentDirections
+import com.example.androidquestions.utils.SharedPrefKeys
+import com.example.androidquestions.utils.onClick
+import com.example.androidquestions.utils.visibleWithScale
 import kotlinx.android.synthetic.main.fragment_topics.*
-import org.koin.android.ext.android.inject
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 
 class TopicsFragment : BaseFragment(R.layout.fragment_topics) {
 
@@ -16,15 +21,24 @@ class TopicsFragment : BaseFragment(R.layout.fragment_topics) {
         private const val TAG = "TopicsFragment"
     }
 
-    private val repository: TopicsRepository by inject()
-
+    @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeTopicsLiveData()
+        setupGoToLastQuestionButton()
+    }
+
+    @ExperimentalCoroutinesApi
+    private fun setupGoToLastQuestionButton() {
+        val lastOpenedQuestionId = preferences.getInt(SharedPrefKeys.LAST_OPENED_QUESTION, -1)
+        if (lastOpenedQuestionId != -1) {
+            go_to_last_btn.visibleWithScale()
+            go_to_last_btn.onClick { goToLastQuestion(lastOpenedQuestionId) }
+        }
     }
 
     private fun observeTopicsLiveData() {
-        repository.getAll().observe(
+        topicsRepository.getAll().observe(
             viewLifecycleOwner,
             Observer {
                 setupTopicsRecycler(it)
@@ -36,8 +50,23 @@ class TopicsFragment : BaseFragment(R.layout.fragment_topics) {
         topics_recycler.adapter = TopicsAdapter(topics) { openQuestionsListFragment(it) }
     }
 
+    @ExperimentalCoroutinesApi
+    private fun goToLastQuestion(lastOpenedQuestionId: Int) {
+        val d = GlobalScope.async { questionsRepository.getById(lastOpenedQuestionId) }
+        d.invokeOnCompletion {
+            val question = d.getCompleted()
+            openQuestionsListFragment(question.topicId)
+            openQuestionFragment(question.link)
+        }
+    }
+
     private fun openQuestionsListFragment(topicId: Int) {
         val action = TopicsFragmentDirections.actionTopicsFragmentToQuestionsListFragment(topicId)
+        navController.navigate(action)
+    }
+
+    private fun openQuestionFragment(questionLink: String) {
+        val action = QuestionsListFragmentDirections.actionQuestionsListFragmentToQuestionFragment(questionLink)
         navController.navigate(action)
     }
 }
