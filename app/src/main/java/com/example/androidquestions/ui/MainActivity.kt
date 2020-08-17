@@ -20,10 +20,7 @@ import com.example.androidquestions.ui.search.SearchAdapter
 import com.example.androidquestions.ui.topics.TopicsFragmentDirections
 import com.example.androidquestions.utils.*
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
 
 
@@ -64,7 +61,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         setupSearchInput()
         if (isFirstLaunch) {
             isFirstLaunch = false
-            GlobalScope.launch { uploadData() }
+            GlobalScope.launch(Dispatchers.IO) { uploadData() }
         }
     }
 
@@ -75,7 +72,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_update -> uploadData()
+            R.id.action_update -> {
+                GlobalScope.launch(Dispatchers.IO) {
+                    uploadData()
+                }
+            }
             R.id.action_search -> search_input.requestFocus()
             android.R.id.home -> onBackPressed()
         }
@@ -101,15 +102,15 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         parser = Parser()
     }
 
-    private fun uploadData() {
-        showProgressBar()
-        GlobalScope.async {
-            database.clearAllTables()
-        }.invokeOnCompletion {
-            GlobalScope.async {
-                getTopics()
-                getQuestions()
-            }.invokeOnCompletion { runOnUiThread { hideProgressBar() } }
+    private suspend fun uploadData() = coroutineScope {
+        withContext(Dispatchers.Main) {
+            showProgressBar()
+        }
+        database.clearAllTables()
+        getTopics()
+        getQuestions()
+        withContext(Dispatchers.Main) {
+            hideProgressBar()
         }
     }
 

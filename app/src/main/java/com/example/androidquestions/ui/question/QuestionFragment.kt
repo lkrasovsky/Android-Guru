@@ -13,6 +13,7 @@ import com.example.androidquestions.utils.SharedPrefKeys
 import com.example.androidquestions.utils.onClick
 import com.example.androidquestions.utils.putInt
 import kotlinx.android.synthetic.main.fragment_question.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -34,7 +35,7 @@ class QuestionFragment : BaseFragment(R.layout.fragment_question) {
     override fun setupOnClickListeners() {
         super.setupOnClickListeners()
         add_to_bookmarks_btn.onClick {
-            GlobalScope.launch {
+            GlobalScope.launch(Dispatchers.IO) {
                 questionsRepository.update(
                     question.copy(isInBookmarks = !question.isInBookmarks)
                 )

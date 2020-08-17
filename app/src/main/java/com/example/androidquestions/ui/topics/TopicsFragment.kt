@@ -13,9 +13,7 @@ import com.example.androidquestions.utils.SharedPrefKeys
 import com.example.androidquestions.utils.onClick
 import com.example.androidquestions.utils.visible
 import kotlinx.android.synthetic.main.fragment_topics.*
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
+import kotlinx.coroutines.*
 
 class TopicsFragment : BaseFragment(R.layout.fragment_topics) {
 
@@ -44,7 +42,11 @@ class TopicsFragment : BaseFragment(R.layout.fragment_topics) {
         val lastOpenedQuestionId = preferences.getInt(SharedPrefKeys.LAST_OPENED_QUESTION, -1)
         if (lastOpenedQuestionId != -1) {
             last_question_btn.visible()
-            last_question_btn.onClick { goToLastQuestion(lastOpenedQuestionId) }
+            last_question_btn.onClick {
+                GlobalScope.launch(Dispatchers.IO) {
+                    goToLastQuestion(lastOpenedQuestionId)
+                }
+            }
         }
     }
 
@@ -62,13 +64,10 @@ class TopicsFragment : BaseFragment(R.layout.fragment_topics) {
     }
 
     @ExperimentalCoroutinesApi
-    private fun goToLastQuestion(lastOpenedQuestionId: Int) {
-        val deferred = GlobalScope.async { questionsRepository.getById(lastOpenedQuestionId) }
-        deferred.invokeOnCompletion {
-            val question = deferred.getCompleted()
-            openQuestionsListFragment(question.topicId)
-            openQuestionFragment(question.id)
-        }
+    private suspend fun goToLastQuestion(lastOpenedQuestionId: Int) = coroutineScope {
+        val question = questionsRepository.getById(lastOpenedQuestionId)
+        openQuestionsListFragment(question.topicId)
+        openQuestionFragment(question.id)
     }
 
     private fun openQuestionsListFragment(topicId: Int) {
