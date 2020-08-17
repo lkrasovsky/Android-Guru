@@ -15,7 +15,7 @@ interface QuestionsDao {
     @Query("SELECT * FROM questions WHERE title LIKE '%'||:title||'%'")
     fun getAllFilteredByTitle(title: String): LiveData<List<Question>>
 
-    @Query("SELECT * FROM questions WHERE isInBookmarks")
+    @Query("SELECT * FROM questions WHERE isInBookmarks ORDER BY topicId AND id")
     fun getBookmarks(): LiveData<List<Question>>
 
     @Query("SELECT * FROM questions WHERE id = :id")
