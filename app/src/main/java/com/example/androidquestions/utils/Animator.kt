@@ -5,12 +5,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import com.example.androidquestions.R
 
-object Animation {
-
-    @Volatile
-    private var instance: com.example.androidquestions.utils.Animation? = null
-
-    private lateinit var context: Context
+class Animator(private val context: Context) {
 
     val zoomToZero: Animation
         get() {
@@ -21,9 +16,4 @@ object Animation {
         get() {
             return AnimationUtils.loadAnimation(context, R.anim.zoom_to_full)
         }
-
-    fun getInstance(context: Context): com.example.androidquestions.utils.Animation {
-        this.context = context
-        return instance ?: Animation
-    }
 }

@@ -44,17 +44,9 @@ fun View.gone() {
 
 fun View.visibleWithScale() {
     if (!isVisible) {
-        val zoomToFullAnimation = Animation.getInstance(context).zoomToFull
+        val zoomToFullAnimation = Animator(context).zoomToFull
         startAnimation(zoomToFullAnimation)
         visible()
-    }
-}
-
-fun View.goneWithScale() {
-    if (isVisible) {
-        val zoomToZeroAnimation = Animation.getInstance(context).zoomToZero
-        startAnimation(zoomToZeroAnimation)
-        gone()
     }
 }
 

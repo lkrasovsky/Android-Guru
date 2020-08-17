@@ -75,6 +75,8 @@
                 android:hint="@string/search"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
+                android:inputType="text"
+                android:maxLines="1"
                 android:textSize="16sp" />
 
             <View

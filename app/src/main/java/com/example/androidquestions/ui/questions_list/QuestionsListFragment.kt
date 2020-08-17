@@ -1,7 +1,9 @@
 package com.example.androidquestions.ui.questions_list
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.example.androidquestions.R
@@ -19,9 +21,9 @@ class QuestionsListFragment : BaseFragment(R.layout.fragment_questions_list) {
 
     private val args: QuestionsListFragmentArgs by navArgs()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         observeQuestionsLiveData()
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     private fun observeQuestionsLiveData() {

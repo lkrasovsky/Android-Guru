@@ -1,7 +1,9 @@
 package com.example.androidquestions.ui.topics
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.example.androidquestions.R
 import com.example.androidquestions.room.topics.Topic
@@ -21,10 +23,14 @@ class TopicsFragment : BaseFragment(R.layout.fragment_topics) {
         private const val TAG = "TopicsFragment"
     }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        observeTopicsLiveData()
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
     @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observeTopicsLiveData()
         setupGoToLastQuestionButton()
     }
 
