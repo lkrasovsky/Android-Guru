@@ -19,11 +19,23 @@ class QuestionsRepository(private val questionsDao: QuestionsDao) {
         }
     }
 
+    fun getBookmarks(): LiveData<List<Question>> {
+        return questionsDao.getBookmarks()
+    }
+
     fun getById(id: Int): Question {
         return questionsDao.getById(id)
     }
 
+    fun getByIdLiveData(id: Int): LiveData<Question> {
+        return questionsDao.getByIdLiveData(id)
+    }
+
     suspend fun insert(questions: List<Question>) {
         return questionsDao.insert(questions)
+    }
+
+    suspend fun update(questions: Question) {
+        return questionsDao.update(questions)
     }
 }

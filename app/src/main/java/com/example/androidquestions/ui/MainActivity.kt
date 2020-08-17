@@ -145,7 +145,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         search_recycler.adapter = SearchAdapter(questions) {
             navController.navigate(R.id.topicsFragment)
             openQuestionsListFragment(it.topicId)
-            openQuestionFragment(it.link)
+            openQuestionFragment(it.id)
             search_input.clearFocus()
         }
     }
@@ -187,8 +187,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         navController.navigate(action)
     }
 
-    private fun openQuestionFragment(questionLink: String) {
-        val action = QuestionsListFragmentDirections.actionQuestionsListFragmentToQuestionFragment(questionLink)
+    private fun openQuestionFragment(questionId: Int) {
+        val action = QuestionsListFragmentDirections.actionQuestionsListFragmentToQuestionFragment(questionId)
         navController.navigate(action)
     }
 }

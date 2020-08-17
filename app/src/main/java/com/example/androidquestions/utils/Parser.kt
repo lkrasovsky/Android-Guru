@@ -45,7 +45,7 @@ class Parser {
                     id = questionId,
                     topicId = topicId + 1,
                     title = it.text(),
-                    link = "$BASE_URL${it.select(A).attr(HREF)}"
+                    url = "$BASE_URL${it.select(A).attr(HREF)}"
                 )
                 questions.add(question)
                 questionId++

@@ -9,5 +9,6 @@ data class Question(
     val id: Int,
     val topicId: Int,
     val title: String,
-    val link: String
+    val url: String,
+    val isInBookmarks: Boolean = false
 )

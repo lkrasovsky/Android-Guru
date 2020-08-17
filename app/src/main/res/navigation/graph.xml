@@ -23,6 +23,13 @@
             app:exitAnim="@anim/fragment_open_exit"
             app:popEnterAnim="@anim/fragment_close_enter"
             app:popExitAnim="@anim/fragment_close_exit" />
+        <action
+            android:id="@+id/action_topicsFragment_to_bookmarksFragment"
+            app:destination="@id/bookmarksFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
     </fragment>
     <fragment
         android:id="@+id/questionsListFragment"
@@ -46,7 +53,20 @@
         android:label="QuestionFragment"
         tools:layout="@layout/fragment_question">
         <argument
-            android:name="questionLink"
-            app:argType="string" />
+            android:name="questionId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookmarksFragment"
+        android:name="com.example.androidquestions.ui.bookmarks.BookmarksFragment"
+        android:label="BookmarksFragment"
+        tools:layout="@layout/fragment_bookmarks">
+        <action
+            android:id="@+id/action_bookmarksFragment_to_questionFragment"
+            app:destination="@id/questionFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
     </fragment>
 </navigation>

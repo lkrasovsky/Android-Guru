@@ -9,8 +9,6 @@ import androidx.navigation.fragment.navArgs
 import com.example.androidquestions.R
 import com.example.androidquestions.room.questions.Question
 import com.example.androidquestions.ui.BaseFragment
-import com.example.androidquestions.utils.SharedPrefKeys
-import com.example.androidquestions.utils.putInt
 import kotlinx.android.synthetic.main.fragment_questions_list.*
 
 class QuestionsListFragment : BaseFragment(R.layout.fragment_questions_list) {
@@ -38,17 +36,12 @@ class QuestionsListFragment : BaseFragment(R.layout.fragment_questions_list) {
 
     private fun setupQuestionsRecycler(questions: List<Question>) {
         questions_recycler.adapter = QuestionsAdapter(questions) {
-            updateLastOpenedQuestion(it.id)
-            openQuestionFragment(it.link)
+            openQuestionFragment(it.id)
         }
     }
 
-    private fun openQuestionFragment(questionLink: String) {
-        val action = QuestionsListFragmentDirections.actionQuestionsListFragmentToQuestionFragment(questionLink)
+    private fun openQuestionFragment(questionId: Int) {
+        val action = QuestionsListFragmentDirections.actionQuestionsListFragmentToQuestionFragment(questionId)
         navController.navigate(action)
-    }
-
-    private fun updateLastOpenedQuestion(questionId: Int) {
-        preferences.putInt(SharedPrefKeys.LAST_OPENED_QUESTION, questionId)
     }
 }

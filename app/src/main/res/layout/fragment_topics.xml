@@ -13,12 +13,15 @@
         tools:listitem="@layout/topic_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/go_to_last_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:clickable="true"
-        android:focusable="true"
+        android:id="@+id/bookbarks_btn"
+        style="@style/fab"
+        android:src="@drawable/ic_bookmarks"
+        app:layout_constraintBottom_toTopOf="@id/last_question_btn"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/last_question_btn"
+        style="@style/fab"
         android:src="@drawable/ic_history_white"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
