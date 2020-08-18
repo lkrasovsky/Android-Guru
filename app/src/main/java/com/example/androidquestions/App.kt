@@ -5,6 +5,7 @@ import com.example.androidquestions.koin.module
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
 
 class App : Application() {
 
@@ -19,7 +20,7 @@ class App : Application() {
 
     private fun startKoin() {
         startKoin {
-            androidLogger()
+            androidLogger(Level.ERROR)
             androidContext(this@App)
             modules(module)
         }
