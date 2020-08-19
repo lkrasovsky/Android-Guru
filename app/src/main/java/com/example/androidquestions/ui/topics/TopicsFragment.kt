@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import com.example.androidquestions.R
 import com.example.androidquestions.room.topics.Topic
 import com.example.androidquestions.ui.BaseFragment
@@ -51,12 +50,9 @@ class TopicsFragment : BaseFragment(R.layout.fragment_topics) {
     }
 
     private fun observeTopicsLiveData() {
-        topicsRepository.getAll().observe(
-            viewLifecycleOwner,
-            Observer {
-                setupTopicsRecycler(it)
-            }
-        )
+        topicsRepository.getAll().observe(viewLifecycleOwner) {
+            setupTopicsRecycler(it)
+        }
     }
 
     private fun setupTopicsRecycler(topics: List<Topic>) {

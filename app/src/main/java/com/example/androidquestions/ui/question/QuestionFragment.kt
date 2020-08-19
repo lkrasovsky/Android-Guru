@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.example.androidquestions.R
 import com.example.androidquestions.room.questions.Question
@@ -43,15 +42,14 @@ class QuestionFragment : BaseFragment(R.layout.fragment_question) {
     }
 
     private fun observeQuestionLiveData(questionId: Int) {
-        questionsRepository.getByIdLiveData(questionId).observe(
-            viewLifecycleOwner,
-            Observer {
+        questionsRepository.getByIdLiveData(questionId).observe(viewLifecycleOwner) {
+            it?.let {
                 question = it
                 setupWebView(it.url)
                 setupAddToBookmarksButton(it.isInBookmarks)
                 updateLastOpenedQuestion(it.id)
             }
-        )
+        }
     }
 
     private suspend fun updateQuestion() = coroutineScope {

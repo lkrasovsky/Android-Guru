@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "815669785369",
+    "firebase_url": "https://android-guru-32d68.firebaseio.com",
+    "project_id": "android-guru-32d68",
+    "storage_bucket": "android-guru-32d68.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:815669785369:android:4aee2747c2b82117910b88",
+        "android_client_info": {
+          "package_name": "com.example.androidquestions"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "815669785369-10bupbm0b2r6ng9p469m50035mceko54.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNvtsy1xk_PMdiX22EtLYbkHCSJHuP4ps"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "815669785369-10bupbm0b2r6ng9p469m50035mceko54.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

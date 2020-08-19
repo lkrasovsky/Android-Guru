@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.example.androidquestions.R
 import com.example.androidquestions.room.questions.Question
@@ -26,12 +25,9 @@ class QuestionsListFragment : BaseFragment(R.layout.fragment_questions_list) {
 
     private fun observeQuestionsLiveData() {
         val topicId: Int = args.topicId
-        questionsRepository.getAllFilteredByTopic(topicId).observe(
-            viewLifecycleOwner,
-            Observer {
-                setupQuestionsRecycler(it)
-            }
-        )
+        questionsRepository.getAllFilteredByTopic(topicId).observe(viewLifecycleOwner) {
+            setupQuestionsRecycler(it)
+        }
     }
 
     private fun setupQuestionsRecycler(questions: List<Question>) {
