@@ -19,10 +19,6 @@ import kotlinx.coroutines.launch
 
 class QuestionFragment : BaseFragment(R.layout.fragment_question) {
 
-    companion object {
-        private const val TAG = "QuestionFragment"
-    }
-
     private val args: QuestionFragmentArgs by navArgs()
 
     private lateinit var question: Question
@@ -71,5 +67,9 @@ class QuestionFragment : BaseFragment(R.layout.fragment_question) {
 
     private fun updateLastOpenedQuestion(questionId: Int) {
         preferences.putInt(SharedPrefKeys.LAST_OPENED_QUESTION, questionId)
+    }
+
+    companion object {
+        private const val TAG = "QuestionFragment"
     }
 }

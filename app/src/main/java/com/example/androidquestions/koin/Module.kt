@@ -27,6 +27,8 @@ val module = module {
         val db = get() as AndroidQuestionsDatabase
         return@single db.questionsDao()
     }
+
+    // Repository
     single { TopicsRepository(get()) }
     single { QuestionsRepository(get()) }
 }

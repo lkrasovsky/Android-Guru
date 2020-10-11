@@ -12,10 +12,6 @@ import kotlinx.android.synthetic.main.fragment_questions_list.*
 
 class QuestionsListFragment : BaseFragment(R.layout.fragment_questions_list) {
 
-    companion object {
-        private const val TAG = "QuestionsListFragment"
-    }
-
     private val args: QuestionsListFragmentArgs by navArgs()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -37,7 +33,12 @@ class QuestionsListFragment : BaseFragment(R.layout.fragment_questions_list) {
     }
 
     private fun openQuestionFragment(questionId: Int) {
-        val action = QuestionsListFragmentDirections.actionQuestionsListFragmentToQuestionFragment(questionId)
+        val action =
+            QuestionsListFragmentDirections.actionQuestionsListFragmentToQuestionFragment(questionId)
         navController.navigate(action)
+    }
+
+    companion object {
+        private const val TAG = "QuestionsListFragment"
     }
 }

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import com.example.androidquestions.R
 import com.example.androidquestions.room.questions.Question
 import com.example.androidquestions.ui.BaseFragment
@@ -15,10 +14,6 @@ import kotlinx.android.synthetic.main.fragment_bookmarks.*
 
 class BookmarksFragment : BaseFragment(R.layout.fragment_bookmarks) {
 
-    companion object {
-        private const val TAG = "BookmarksFragment"
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         observeQuestionsListFragment()
         return super.onCreateView(inflater, container, savedInstanceState)
@@ -27,7 +22,7 @@ class BookmarksFragment : BaseFragment(R.layout.fragment_bookmarks) {
     private fun observeQuestionsListFragment() {
         questionsRepository.getBookmarks().observe(
             viewLifecycleOwner,
-            Observer {
+            {
                 if (it.isNotEmpty()) {
                     setupQuestionsList(it)
                 } else {
@@ -49,7 +44,12 @@ class BookmarksFragment : BaseFragment(R.layout.fragment_bookmarks) {
     }
 
     private fun openQuestionFragment(questionId: Int) {
-        val action = BookmarksFragmentDirections.actionBookmarksFragmentToQuestionFragment(questionId)
+        val action =
+            BookmarksFragmentDirections.actionBookmarksFragmentToQuestionFragment(questionId)
         navController.navigate(action)
+    }
+
+    companion object {
+        private const val TAG = "BookmarksFragment"
     }
 }

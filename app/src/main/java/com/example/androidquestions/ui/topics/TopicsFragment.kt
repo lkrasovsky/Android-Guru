@@ -16,10 +16,6 @@ import kotlinx.coroutines.*
 
 class TopicsFragment : BaseFragment(R.layout.fragment_topics) {
 
-    companion object {
-        private const val TAG = "TopicsFragment"
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         observeTopicsLiveData()
         return super.onCreateView(inflater, container, savedInstanceState)
@@ -59,7 +55,6 @@ class TopicsFragment : BaseFragment(R.layout.fragment_topics) {
         topics_recycler.adapter = TopicsAdapter(topics) { openQuestionsListFragment(it) }
     }
 
-    @ExperimentalCoroutinesApi
     private suspend fun goToLastQuestion(lastOpenedQuestionId: Int) = coroutineScope {
         val question = questionsRepository.getById(lastOpenedQuestionId)
         openQuestionsListFragment(question.topicId)
@@ -72,12 +67,17 @@ class TopicsFragment : BaseFragment(R.layout.fragment_topics) {
     }
 
     private fun openQuestionFragment(questionId: Int) {
-        val action = QuestionsListFragmentDirections.actionQuestionsListFragmentToQuestionFragment(questionId)
+        val action =
+            QuestionsListFragmentDirections.actionQuestionsListFragmentToQuestionFragment(questionId)
         navController.navigate(action)
     }
 
     private fun openBookmarksFragment() {
         val action = TopicsFragmentDirections.actionTopicsFragmentToBookmarksFragment()
         navController.navigate(action)
+    }
+
+    companion object {
+        private const val TAG = "TopicsFragment"
     }
 }
