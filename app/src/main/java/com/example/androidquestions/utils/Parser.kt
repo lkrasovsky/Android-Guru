@@ -13,9 +13,10 @@ import org.jsoup.select.Elements
 class Parser {
 
     companion object {
+        private const val TAG = "https://itsobes.ru"
         private const val BASE_URL = "https://itsobes.ru"
         private const val URL_TAGS = "/AndroidSobes/tags/"
-        private const val TAGS_POSTS = "tags posts"
+        private const val TAGS_POSTS = "ContentList_posts__KQ_LP"
         private const val LI = "li"
         private const val A = "a"
         private const val HREF = "href"

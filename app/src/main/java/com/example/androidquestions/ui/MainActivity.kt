@@ -189,7 +189,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     private fun openQuestionFragment(questionId: Int) {
-        val action = QuestionsListFragmentDirections.actionQuestionsListFragmentToQuestionFragment(questionId)
+        val action =
+            QuestionsListFragmentDirections.actionQuestionsListFragmentToQuestionFragment(questionId)
         navController.navigate(action)
     }
 }
