@@ -14,6 +14,7 @@ import com.example.androidquestions.R
 import com.example.androidquestions.room.AndroidQuestionsDatabase
 import com.example.androidquestions.room.questions.Question
 import com.example.androidquestions.room.questions.QuestionsRepository
+import com.example.androidquestions.room.technologies.TechnologiesRepository
 import com.example.androidquestions.room.topics.TopicsRepository
 import com.example.androidquestions.ui.questions_list.QuestionsListFragmentDirections
 import com.example.androidquestions.ui.search.SearchAdapter
@@ -41,6 +42,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private lateinit var parser: Parser
 
     private val database: AndroidQuestionsDatabase by inject()
+
+    private val technologiesRepository: TechnologiesRepository by inject()
     private val topicsRepository: TopicsRepository by inject()
     private val questionsRepository: QuestionsRepository by inject()
 
@@ -106,9 +109,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         withContext(Dispatchers.Main) {
             showProgressBar()
         }
+
         database.clearAllTables()
+
+        getTechnologies()
         getTopics()
         getQuestions()
+
         withContext(Dispatchers.Main) {
             hideProgressBar()
         }
@@ -149,6 +156,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             openQuestionFragment(it.id)
             search_input.clearFocus()
         }
+    }
+
+    private suspend fun getTechnologies() = coroutineScope {
+        val technologies = parser.parseTechnologies()
+        technologiesRepository.insert(technologies)
     }
 
     private suspend fun getTopics() = coroutineScope {

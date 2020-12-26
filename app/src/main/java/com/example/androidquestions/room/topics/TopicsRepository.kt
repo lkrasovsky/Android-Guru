@@ -4,11 +4,15 @@ import androidx.lifecycle.LiveData
 
 class TopicsRepository(private val topicsDao: TopicsDao) {
 
-    fun getAll(): LiveData<List<Topic>> {
-        return topicsDao.getAll()
+    fun getAllFilteredByTechnology(technologyId: Int): LiveData<List<Topic>> {
+        return topicsDao.getAllFilteredByTechnology(technologyId)
     }
 
     suspend fun insert(topics: List<Topic>) {
-        return topicsDao.insert(topics)
+        topicsDao.insert(topics)
+    }
+
+    suspend fun clear() {
+        topicsDao.clear()
     }
 }

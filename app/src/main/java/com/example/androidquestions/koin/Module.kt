@@ -21,11 +21,15 @@ val module = module {
     }
     single {
         val db = get() as AndroidQuestionsDatabase
-        return@single db.topicsDao()
+        return@single db.technologiesDao
     }
     single {
         val db = get() as AndroidQuestionsDatabase
-        return@single db.questionsDao()
+        return@single db.topicsDao
+    }
+    single {
+        val db = get() as AndroidQuestionsDatabase
+        return@single db.questionsDao
     }
 
     // Repository

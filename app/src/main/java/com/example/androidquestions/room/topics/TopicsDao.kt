@@ -9,8 +9,8 @@ import androidx.room.Query
 @Dao
 interface TopicsDao {
 
-    @Query("SELECT * FROM topics")
-    fun getAll(): LiveData<List<Topic>>
+    @Query("SELECT * FROM topics WHERE technologyId = :technologyId")
+    fun getAllFilteredByTechnology(technologyId: Int): LiveData<List<Topic>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(topics: List<Topic>)

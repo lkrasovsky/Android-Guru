@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.navArgs
 import com.example.androidquestions.R
 import com.example.androidquestions.room.topics.Topic
 import com.example.androidquestions.ui.BaseFragment
@@ -16,7 +17,13 @@ import kotlinx.coroutines.*
 
 class TopicsFragment : BaseFragment(R.layout.fragment_topics) {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    private val args: TopicsFragmentArgs by navArgs()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         observeTopicsLiveData()
         return super.onCreateView(inflater, container, savedInstanceState)
     }
@@ -29,7 +36,7 @@ class TopicsFragment : BaseFragment(R.layout.fragment_topics) {
 
     override fun setupOnClickListeners() {
         super.setupOnClickListeners()
-        bookbarks_btn.onClick { openBookmarksFragment() }
+        bookmarks_btn.onClick { openBookmarksFragment() }
     }
 
     @ExperimentalCoroutinesApi
@@ -46,7 +53,8 @@ class TopicsFragment : BaseFragment(R.layout.fragment_topics) {
     }
 
     private fun observeTopicsLiveData() {
-        topicsRepository.getAll().observe(viewLifecycleOwner) {
+        val technologyId: Int = args.technologyId
+        topicsRepository.getAllFilteredByTechnology(technologyId).observe(viewLifecycleOwner) {
             setupTopicsRecycler(it)
         }
     }
