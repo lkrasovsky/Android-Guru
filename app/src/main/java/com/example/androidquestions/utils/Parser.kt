@@ -6,6 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
+import org.jsoup.HttpStatusException
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
@@ -41,7 +42,7 @@ class Parser {
         val topicsLinks: MutableList<String>? = topicsDoc.getElementsByClass(TAGS_POSTS).links()
         topicsLinks?.forEachIndexed { topicId, topicLink ->
             val questionsDoc = getQuestionsDoc(topicLink)
-            questionsDoc.getElementsByClass(TAGS_POSTS).select(LI).forEach {
+            questionsDoc?.getElementsByClass(TAGS_POSTS)?.select(LI)?.forEach {
                 val question = Question(
                     id = questionId,
                     topicId = topicId + 1,
@@ -59,9 +60,14 @@ class Parser {
         Jsoup.connect("$BASE_URL$URL_TAGS").get()
     }
 
-    private suspend fun getQuestionsDoc(topicLink: String): Document = withContext(Dispatchers.IO) {
-        Jsoup.connect("$BASE_URL$topicLink").get()
-    }
+    private suspend fun getQuestionsDoc(topicLink: String): Document? =
+        withContext(Dispatchers.IO) {
+            return@withContext try {
+                Jsoup.connect("$BASE_URL$topicLink").get()
+            } catch (e: HttpStatusException) {
+                null
+            }
+        }
 
     private fun Elements.links(): MutableList<String>? {
         return select(LI)
