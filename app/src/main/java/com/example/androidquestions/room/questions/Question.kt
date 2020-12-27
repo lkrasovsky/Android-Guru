@@ -8,6 +8,7 @@ data class Question(
     @PrimaryKey
     val id: Int,
     val topicId: Int,
+    val technologyId: Int,
     val title: String,
     val url: String,
     val isInBookmarks: Boolean = false

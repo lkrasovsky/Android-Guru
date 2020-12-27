@@ -7,5 +7,6 @@ import androidx.room.PrimaryKey
 data class Topic(
     @PrimaryKey
     val id: Int,
-    val title: String
+    val title: String,
+    val technologyId: Int
 )
