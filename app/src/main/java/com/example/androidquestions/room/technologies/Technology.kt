@@ -7,5 +7,6 @@ import androidx.room.PrimaryKey
 data class Technology(
     @PrimaryKey
     val id: Int,
-    val title: String
+    val title: String,
+    val imageResourceId: Int
 )
