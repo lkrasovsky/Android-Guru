@@ -12,19 +12,4 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/topic_item" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/bookmarks_btn"
-        style="@style/fab"
-        android:src="@drawable/ic_bookmarks"
-        app:layout_constraintBottom_toTopOf="@id/last_question_btn"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/last_question_btn"
-        style="@style/fab"
-        android:src="@drawable/ic_history_white"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

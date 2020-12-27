@@ -18,6 +18,7 @@ import com.example.androidquestions.room.technologies.TechnologiesRepository
 import com.example.androidquestions.room.topics.TopicsRepository
 import com.example.androidquestions.ui.questions_list.QuestionsListFragmentDirections
 import com.example.androidquestions.ui.search.SearchAdapter
+import com.example.androidquestions.ui.technologies.TechnologiesFragmentDirections
 import com.example.androidquestions.ui.topics.TopicsFragmentDirections
 import com.example.androidquestions.utils.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -151,9 +152,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private fun setupSearchRecycler(questions: List<Question>) {
         search_recycler.adapter = SearchAdapter(questions) {
-            navController.navigate(R.id.topicsFragment)
+            openTopicsFragment(it.technologyId)
             openQuestionsListFragment(it.topicId)
             openQuestionFragment(it.id)
+
             search_input.clearFocus()
         }
     }
@@ -193,6 +195,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         updateButton?.visibleWithScale()
         searchButton?.visibleWithScale()
         fragment_container.visible()
+    }
+
+    private fun openTopicsFragment(technologyId: Int) {
+        val action =
+            TechnologiesFragmentDirections.actionTechnologiesFragmentToTopicsFragment(technologyId)
+        navController.navigate(action)
     }
 
     private fun openQuestionsListFragment(topicId: Int) {

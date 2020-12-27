@@ -11,7 +11,7 @@ import com.example.androidquestions.utils.onClick
 
 class TechnologiesAdapter(
     private val topics: List<Technology>,
-    private val callback: (Int) -> Unit
+    private val callback: (technologyId: Int) -> Unit
 ) : RecyclerView.Adapter<TechnologiesAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

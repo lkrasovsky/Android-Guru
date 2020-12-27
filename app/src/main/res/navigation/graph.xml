@@ -3,7 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/graph"
-    app:startDestination="@id/topicsFragment">
+    app:startDestination="@id/technologiesFragment">
+    <fragment
+        android:id="@+id/technologiesFragment"
+        android:name="com.example.androidquestions.ui.technologies.TechnologiesFragment"
+        android:label="TechnologiesFragment"
+        tools:layout="@layout/fragment_technologies">
+        <action
+            android:id="@+id/action_technologiesFragment_to_bookmarksFragment"
+            app:destination="@id/bookmarksFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+        <action
+            android:id="@+id/action_technologiesFragment_to_topicsFragment"
+            app:destination="@id/topicsFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+    </fragment>
     <fragment
         android:id="@+id/topicsFragment"
         android:name="com.example.androidquestions.ui.topics.TopicsFragment"
@@ -67,26 +87,6 @@
         <action
             android:id="@+id/action_bookmarksFragment_to_questionFragment"
             app:destination="@id/questionFragment"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_open_exit"
-            app:popEnterAnim="@anim/fragment_close_enter"
-            app:popExitAnim="@anim/fragment_close_exit" />
-    </fragment>
-    <fragment
-        android:id="@+id/technologiesFragment"
-        android:name="com.example.androidquestions.ui.technologies.TechnologiesFragment"
-        android:label="TechnologiesFragment"
-        tools:layout="@layout/fragment_technologies">
-        <action
-            android:id="@+id/action_technologiesFragment_to_bookmarksFragment"
-            app:destination="@id/bookmarksFragment"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_open_exit"
-            app:popEnterAnim="@anim/fragment_close_enter"
-            app:popExitAnim="@anim/fragment_close_exit" />
-        <action
-            android:id="@+id/action_technologiesFragment_to_topicsFragment"
-            app:destination="@id/topicsFragment"
             app:enterAnim="@anim/fragment_open_enter"
             app:exitAnim="@anim/fragment_open_exit"
             app:popEnterAnim="@anim/fragment_close_enter"
