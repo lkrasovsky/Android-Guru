@@ -8,6 +8,7 @@ import com.example.androidquestions.R
 import com.example.androidquestions.room.technologies.Technology
 import com.example.androidquestions.utils.binding
 import com.example.androidquestions.utils.onClick
+import kotlinx.android.synthetic.main.technology_item.view.*
 
 class TechnologiesAdapter(
     private val topics: List<Technology>,
@@ -31,6 +32,7 @@ class TechnologiesAdapter(
         fun bind(technology: Technology) {
             binding.setVariable(BR.technology, technology)
             binding.executePendingBindings()
+            binding.root.technologyImage.setImageResource(technology.imageResourceId)
             itemView.onClick { callback(technology.id) }
         }
     }

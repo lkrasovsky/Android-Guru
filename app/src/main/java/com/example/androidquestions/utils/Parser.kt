@@ -1,5 +1,6 @@
 package com.example.androidquestions.utils
 
+import com.example.androidquestions.R
 import com.example.androidquestions.room.questions.Question
 import com.example.androidquestions.room.technologies.Technology
 import com.example.androidquestions.room.topics.Topic
@@ -26,7 +27,16 @@ class Parser {
             .select(ATTR_LI)
             .select(ATTR_A)
             .forEachIndexed { technologyId, element ->
-                val technology = Technology(id = technologyId, title = element.text())
+                val technology = Technology(
+                    id = technologyId,
+                    title = element.text(),
+                    imageResourceId = when (technologyId) {
+                        0 -> R.drawable.programming_logo
+                        1 -> R.drawable.java_logo
+                        2 -> R.drawable.android_logo
+                        else -> throw Exception("Unknown technology id.")
+                    }
+                )
                 technologies.add(technology)
                 technologiesLinks.add(element.attr(ATTR_HREF))
             }
