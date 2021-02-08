@@ -7,7 +7,6 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.androidquestions.R
@@ -130,12 +129,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     private fun searchQuestions(searchText: String) {
-        questionsRepository.getAllFilteredByTitle(searchText).observe(
-            this,
-            Observer {
-                setupSearchRecycler(it)
-            }
-        )
+        questionsRepository.getAllFilteredByTitle(searchText).observe(this) {
+            setupSearchRecycler(it)
+        }
     }
 
     private fun onSearchInputFocused(view: View) {
@@ -198,6 +194,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     private fun openTopicsFragment(technologyId: Int) {
+        navController.navigate(R.id.technologiesFragment)
         val action =
             TechnologiesFragmentDirections.actionTechnologiesFragmentToTopicsFragment(technologyId)
         navController.navigate(action)
